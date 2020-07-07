@@ -20,7 +20,7 @@ let clientController = {
     },
 
     createClient (req, res) {
-        let body = ["09980100648", "rachel", "bay", "10", "24500235", "arcadia bay", "oregon", "eua", "aaa@aaa.com", "123456", "5550123", "active", "2016-12-01 12:32:00.000", null];
+        let body = req.body;
         clientHelper.createClient(body)
             .then((response) =>{
                 return  res.json(response);
@@ -29,11 +29,7 @@ let clientController = {
 
     editClient (req, res) {
 
-        let body = {
-            name: "max",
-            email: "email@example.com"
-        }
-
+        let body = req.body;
         let id = req.params.id;
 
         clientHelper.editClient(body, id)

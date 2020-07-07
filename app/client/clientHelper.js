@@ -1,6 +1,7 @@
 let clientRepository = require('./clientRepository');
 let mysql = require('mysql');
 let moment = require('moment');
+let utils = require('../../utils/functions')
 
 
 let clientHelper = {
@@ -36,7 +37,8 @@ let clientHelper = {
     createClient (values) {
         return new Promise((resolve, reject) => {
 
-            let formattedValues = escape(values);
+            let valuesAsArray = Object.values(values);
+            let formattedValues = escape(valuesAsArray);
 
             clientRepository.createClient(formattedValues)
                 .then((response) =>{
@@ -52,7 +54,7 @@ let clientHelper = {
     editClient (values, id) {
         return new Promise((resolve, reject) => {
 
-            setEditValues(values).then((formattedValues) => {
+            utils.setEditValues(values).then((formattedValues) => {
                 
                 clientRepository.editClient(formattedValues, id)
                 .then((response) =>{
@@ -89,16 +91,6 @@ function escape(values) {
     return mysql.escape(values);
 }
 
-function setEditValues(values) {
-    return new Promise((resolve) => {
-        let valuesKeys = Object.keys(values);
-        let formattedValues = '';
-        valuesKeys.forEach((value, index) => {
-            formattedValues += value + ' = ' + escape(values[value]) + ',';
-        });
-        formattedValues = formattedValues.slice(0, formattedValues.length - 1);
-        resolve(formattedValues);
-    })
-}
+
 
 module.exports = clientHelper;

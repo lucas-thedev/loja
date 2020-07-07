@@ -1,16 +1,12 @@
-let clientModel = {
-    CPF,
-    name,
-    street,
-    houseNumber,
-    zipCode,
-    city,
-    state,
-    country,
-    email,
-    password,
-    phone,
-    status
-}
+let productModel = [
+    'name',
+    'code',
+    'price',
+    'images',
+    'status',
+    'featuresHomeScreen',
+    'categoryOrder',
+    'features'
+];
 
-module.exports = clientModel;
+module.exports = productModel;
