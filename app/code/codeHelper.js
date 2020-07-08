@@ -1,6 +1,6 @@
-let codeRepository = require('./codeRepository');
-let mysql = require('mysql');
-let utils = require('../../utils/functions')
+const codeRepository = require('./codeRepository');
+const mysql = require('mysql');
+const utils = require('../../utils/functions')
 
 let codeHelper = {
 
@@ -38,8 +38,6 @@ let codeHelper = {
     },
 
     editCode (values, id) {
-        let a = {code: 'A5'}
-        let b = 'A2'
         return new Promise((resolve, reject) => {
 
             utils.setEditValues(a).then((formattedValues) => {

@@ -1,12 +1,23 @@
-let sql = require('../../database/queries');
-let clientModel = require('./client');
+const sql = require('../../database/queries');
+const clientModel = require('./client');
 
 let clientRepository = {
     listClients() {
         return new Promise((resolve, reject) => {
+
             let queryCommand = 'SELECT * FROM client WHERE deleted_at IS NULL;'
-            sql.query(queryCommand).then((response) => {
-                resolve(response);
+
+            sql.query(queryCommand).then((clients) => {
+
+                queryCommand = 'SELECT count(*) as count FROM client WHERE deleted_at IS NULL;'
+
+                sql.query(queryCommand).then((count) => {
+                    resolve({clients, count});
+                }, error => {
+                    console.log(error);
+                    reject();
+                });
+                
             }, error => {
                 console.log(error);
                 reject();

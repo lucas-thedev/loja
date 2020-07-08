@@ -1,9 +1,9 @@
-let express = require('express');
-let app = express();
+const express = require('express');
+const app = express();
 require('dotenv').config();
-let router = require('./routes');
+const router = require('./routes');
 
-let bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());

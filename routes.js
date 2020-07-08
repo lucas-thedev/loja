@@ -1,8 +1,8 @@
-let express = require('express');
-let router = express.Router();
-let clientController = require('./app/client/clientController');
-let productController = require('./app/product/productController');
-const codeHelper = require('./app/code/codeHelper');
+const express = require('express');
+const router = express.Router();
+const clientController = require('./app/client/clientController');
+const productController = require('./app/product/productController');
+const stockController = require('./app/stock/stockController');
 
 //clients
 router.get('/clients', clientController.listClients);
@@ -14,11 +14,11 @@ router.put('/clients/delete/:id', clientController.deleteClient);
 //products
 router.get('/products', productController.listProducts);
 
-
-
-
-
-router.post('/test', codeHelper.editCode);
+//stock 
+router.get('/stock/:id', stockController.getStock);
+router.put('/stock/add/:id', stockController.addItem);
+router.put('/stock/remove/:id', stockController.removeItem);
+router.put('/stock/minQnt/:id', stockController.alterMinQuantity);
 
 
 

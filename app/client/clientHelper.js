@@ -1,7 +1,7 @@
-let clientRepository = require('./clientRepository');
-let mysql = require('mysql');
-let moment = require('moment');
-let utils = require('../../utils/functions')
+const clientRepository = require('./clientRepository');
+const mysql = require('mysql');
+const moment = require('moment');
+const utils = require('../../utils/functions')
 
 
 let clientHelper = {

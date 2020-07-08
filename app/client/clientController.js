@@ -1,4 +1,4 @@
-let clientHelper = require('./clientHelper');
+const clientHelper = require('./clientHelper');
 
 let clientController = {
 
