@@ -10,8 +10,7 @@ let command = {
                 let res = results;
     
                 if(error) {
-                     console.log(error);
-                     reject();
+                    resolve({error, message: 'SQL query failed'});
                 } else {
                     resolve(res);
                 }

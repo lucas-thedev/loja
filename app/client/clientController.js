@@ -14,16 +14,22 @@ let clientController = {
         let id = req.params.id;
 
         clientHelper.getClient(id)
-            .then((response) =>{
-                return  res.json(response);
+        .then((response) =>{
+            if (response.error) {
+                res.status(503);
+            }
+            return res.json(response);
         });
     },
 
     createClient (req, res) {
         let body = req.body;
         clientHelper.createClient(body)
-            .then((response) =>{
-                return  res.json(response);
+        .then((response) =>{
+            if (response.error) {
+                res.status(503);
+            }
+            return res.json(response);
         });
     },
 
@@ -33,9 +39,12 @@ let clientController = {
         let id = req.params.id;
 
         clientHelper.editClient(body, id)
-            .then((response) => {
-                return res.json(response);
-            });
+        .then((response) =>{
+            if (response.error) {
+                res.status(503);
+            }
+            return res.json(response);
+        });
     },
 
     deleteClient (req, res) {
@@ -43,9 +52,12 @@ let clientController = {
         let id = req.params.id;
 
         clientHelper.deleteClient(id)
-            .then((response) => {
-                return res.json(response);
-            });
+        .then((response) =>{
+            if (response.error) {
+                res.status(503);
+            }
+            return res.json(response);
+        });
     }
 
 

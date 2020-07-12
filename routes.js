@@ -3,6 +3,7 @@ const router = express.Router();
 const clientController = require('./app/client/clientController');
 const productController = require('./app/product/productController');
 const stockController = require('./app/stock/stockController');
+const productFeatureHelper = require('./app/productFeatures/productFeatureHelper');
 
 //clients
 router.get('/clients', clientController.listClients);

@@ -1,44 +1,38 @@
 const sql = require('../../database/queries');
 const stockModel = require('./stock');
 
-let clientRepository = {
+let stockRepository = {
 
     createStock(values) {
-        return new Promise((resolve, reject) => {
-            let queryCommand = 'INSERT INTO stock (' + stockModel + ') VALUES (' + values + ')';
-            sql.query(queryCommand).then((response) => {
-                resolve(response);
-            }, error => {
-                console.log(error);
-                reject();
+        return new Promise((resolve) => {
+            let queryCommand = 'INSERT INTO stock (' + stockModel + ') VALUES (' + values + ');';
+            sql.query(queryCommand).then(() => {
+                queryCommand = ' SELECT LAST_INSERT_ID() as stock;'
+                sql.query(queryCommand).then((response) => {
+                    resolve(response);
+                })
             });
-        })
+        });
     },
 
     getStock(id) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             let queryCommand = 'SELECT * FROM stock WHERE stock.id =' + id + ';'
             sql.query(queryCommand).then((response) => {
                 resolve(response);
-            }, error => {
-                console.log(error);
-                reject();
             });
-        })
+        });
     },
 
     updateItemQnt (id, values) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             let queryCommand = 'UPDATE stock SET ' + values + ' WHERE stock.id = ' + id +';'
             sql.query(queryCommand).then((response) => {
                 resolve(response);
-            }, error => {
-                console.log(error);
-                reject();
             });
-        })
+        });
     },
 
 }
 
-module.exports = clientRepository;
+module.exports = stockRepository;

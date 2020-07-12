@@ -12,9 +12,6 @@ let clientHelper = {
             clientRepository.listClients()
                 .then((response) =>{
                     resolve(response);
-                }, error => {
-                    console.log(error);
-                    reject();
                 }); 
         });
 
@@ -26,9 +23,6 @@ let clientHelper = {
             clientRepository.getClient(id)
                 .then((response) =>{
                     resolve(response);
-                }, error => {
-                    console.log(error);
-                    reject();
                 }); 
         });
 
@@ -43,10 +37,7 @@ let clientHelper = {
             clientRepository.createClient(formattedValues)
                 .then((response) =>{
                     resolve(response);
-                }, error => {
-                    console.log(error);
-                    reject();
-            });
+                });
         });
 
     },
@@ -59,9 +50,6 @@ let clientHelper = {
                 clientRepository.editClient(formattedValues, id)
                 .then((response) =>{
                     resolve(response);
-                }, error => {
-                    console.log(error);
-                    reject();
                 });
             });
 
@@ -77,9 +65,6 @@ let clientHelper = {
             clientRepository.deleteClient(date, id)
                 .then((response) =>{
                     resolve(response);
-                }, error => {
-                    console.log(error);
-                    reject();
                 });
                 
         });

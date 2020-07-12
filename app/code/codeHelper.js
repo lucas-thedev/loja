@@ -4,8 +4,7 @@ const utils = require('../../utils/functions')
 
 let codeHelper = {
 
-    createCode (values) {
-        let value = 1;
+    createCode (value) {
         return new Promise((resolve, reject) => {
             checkIfExists(value).then((res) => {
                 let formattedValues = escape(value);

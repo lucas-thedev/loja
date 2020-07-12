@@ -2,8 +2,6 @@ const stockRepository = require('./stockRepository');
 const mysql = require('mysql');
 const utils = require('../../utils/functions');
 const nodemailer = require('nodemailer');
-const { min } = require('moment');
-
 
 let stockHelper = {
 
@@ -16,10 +14,7 @@ let stockHelper = {
             stockRepository.createStock(formattedValues)
                 .then((response) =>{
                     resolve(response);
-                }, error => {
-                    console.log(error);
-                    reject();
-                }); 
+                });
         });
 
     },
@@ -30,10 +25,7 @@ let stockHelper = {
             stockRepository.getStock(id)
                 .then((response) =>{
                     resolve(response);
-                }, error => {
-                    console.log(error);
-                    reject();
-                }); 
+                });
         });
 
     },
@@ -54,9 +46,6 @@ let stockHelper = {
                     stockRepository.updateItemQnt(id, updatedQueryValues)
                     .then((response) =>{
                         resolve(response);
-                    }, error => {
-                        console.log(error);
-                        reject();
                     });
 
                 });
@@ -67,32 +56,32 @@ let stockHelper = {
 
     },
 
-    removeItem (id, removeValue) {
+    removeItem (id, body) {
         return new Promise((resolve, reject) => {
 
-            if (!isPositiveInteger(removeValue.remove.toString())) {
-                reject();
+            if (!isPositiveInteger(body.remove.toString())) {
+                resolve(403);
             }
 
-            this.getStock(id).then((stock) => {
+            this.getStock(id).then((res) => {
+                if (res.error) {
+                    resolve(res);
+                } else {
+                    let newItemQtn = res[0].availableProducts - body.remove;
 
-                let newItemQtn = stock[0].availableProducts - removeValue.remove;
-
-                utils.setEditValues({availableProducts: newItemQtn}).then((updatedQueryValues) => {
-
-                    stockRepository.updateItemQnt(id, updatedQueryValues)
-                    .then((response) =>{
-
-                        checkIfItsMin(stock[0].minAvailableProducts, newItemQtn);
-
-                        resolve(response);
-                    }, error => {
-                        console.log(error);
-                        reject();
+                    utils.setEditValues({availableProducts: newItemQtn}).then((updatedQueryValues) => {
+    
+                        stockRepository.updateItemQnt(id, updatedQueryValues)
+                        .then((response) =>{
+    
+                            checkIfItsMin(res[0].minAvailableProducts, newItemQtn, body.product);
+    
+                            resolve(response);
+                        });
+    
                     });
-
-                });
-
+                }
+    
             });
             
         });
@@ -116,9 +105,6 @@ let stockHelper = {
                     stockRepository.updateItemQnt(id, updatedQueryValues)
                     .then((response) =>{
                         resolve(response);
-                    }, error => {
-                        console.log(error);
-                        reject();
                     });
 
                 });
@@ -139,13 +125,13 @@ function isPositiveInteger(n) {
     return 0 === n % (!isNaN(parseFloat(n)) && 0 <= ~~n);
 }
 
-function checkIfItsMin (minQnt, currentValue) {
+function checkIfItsMin (minQnt, currentValue, product) {
     if (currentValue <= minQnt) {
-        sendEmail();
+        sendEmail(minQnt, currentValue, product);
     }
 }
 
-function sendEmail() {
+function sendEmail(minQnt, currentValue, product) {
 
     let transporter = nodemailer.createTransport({
         service: process.env.EMAIL_SENDER_PROVIDER,
@@ -158,8 +144,8 @@ function sendEmail() {
     let mailOptions = {
         from: process.env.EMAIL_SENDER_PROVIDER,
         to: process.env.EMAIL_ADRESS_RECEIVER,
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy!'
+        subject: 'Atenção: estoque quase acabando!',
+        text: 'O estoque do produto ' + product + ' está com ' + currentValue + ' produtos.' + '\n' + 'A quantidade mínima é: ' + minQnt +  '.\nFique atento!'
     }
 
     transporter.sendMail(mailOptions, function(error, info){
