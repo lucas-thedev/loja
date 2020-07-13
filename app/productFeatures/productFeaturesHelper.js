@@ -30,7 +30,7 @@ let productFeatureHelper = {
 
     },
 
-    updateProductFeatures (id, body) {
+    updateProductFeatures (body, id) {
         return new Promise((resolve) => {
 
             utils.setEditValues(body).then((updatedQueryValues) => {

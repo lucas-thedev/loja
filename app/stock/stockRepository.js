@@ -17,7 +17,7 @@ let stockRepository = {
 
     getStock(id) {
         return new Promise((resolve) => {
-            let queryCommand = 'SELECT * FROM stock WHERE stock.id =' + id + ';'
+            let queryCommand = 'SELECT * FROM stock WHERE stock.i =' + id + ';'
             sql.query(queryCommand).then((response) => {
                 resolve(response);
             });
