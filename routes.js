@@ -28,7 +28,9 @@ router.put('/code/:id', codeController.editCode);
 router.put('/product-features/:id', productFeaturesController.updateProductFeatures);
 
 //images 
-router.post('/images', upload.single('thumbnail'), imagesController.createThumbnail);
+router.post('/images', upload.array('images'), imagesController.createImages);
+router.post('/images/thumbnail', upload.single('thumbnail'), imagesController.createThumbnail);
+router.put('/images/config/:id', imagesController.editImages);
 
 
 

@@ -2,7 +2,8 @@ let imagesModel = [
     'path',
     'name',
     'id_product',
-    'is_thumbnail'
+    'is_thumbnail',
+    'active'
 ];
 
 module.exports = imagesModel;
