@@ -30,6 +30,27 @@ let imagesHelper = {
 
     },
 
+
+    getProductsImages(productId) {
+        return new Promise((resolve) => {
+            imagesRepository.getProductsImages(productId)
+                .then((response) =>{
+                    resolve(response);
+            });
+        })
+
+    },
+
+    getImage(productId) {
+        return new Promise((resolve) => {
+            imagesRepository.getImage(productId)
+                .then((response) =>{
+                    resolve(response);
+            });
+        })
+
+    },
+
     editImages(id, config) {
         return new Promise((resolve, reject) => {
 

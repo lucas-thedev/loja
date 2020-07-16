@@ -1,12 +1,25 @@
+//imports 
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 let multer  = require('multer');
-let upload = multer({ dest: './assets/uploads' });
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'assets/uploads/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname))
+    }
+  });
+const upload = multer({ storage: storage });
 const clientController = require('./app/client/clientController');
 const stockController = require('./app/stock/stockController');
 const codeController = require('./app/code/codeController');
 const productFeaturesController = require('./app/productFeatures/productFeaturesController');
 const imagesController = require('./app/images/imagesController');
+const priceController = require('./app/price/priceController');
+
+// ROUTES ===================================================================================================
 
 //clients
 router.get('/clients', clientController.listClients);
@@ -31,7 +44,11 @@ router.put('/product-features/:id', productFeaturesController.updateProductFeatu
 router.post('/images', upload.array('images'), imagesController.createImages);
 router.post('/images/thumbnail', upload.single('thumbnail'), imagesController.createThumbnail);
 router.put('/images/config/:id', imagesController.editImages);
+router.get('/images/product/:id', imagesController.getProductsImages); //melhor em product controller futuramente
+router.get('/images/:id', imagesController.getImage);
 
+//price
+router.put('/prices/:id', priceController.editPrice);
 
 
 

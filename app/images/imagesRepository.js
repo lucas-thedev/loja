@@ -33,6 +33,24 @@ let imagesRepository = {
         });   
     },
 
+    getProductsImages(id) {
+        return new Promise((resolve) => {
+            let queryCommand = 'SELECT * FROM mydb.product_images WHERE id_product=' + id + ';'
+            sql.query(queryCommand).then((response) => {
+                resolve(response);
+            });
+        });   
+    },
+
+    getImage(id) {
+        return new Promise((resolve) => {
+            let queryCommand = 'SELECT * FROM mydb.product_images WHERE id=' + id + ';'
+            sql.query(queryCommand).then((response) => {
+                resolve(response);
+            });
+        });   
+    },
+
 }
 
 module.exports = imagesRepository;

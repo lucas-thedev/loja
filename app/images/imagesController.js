@@ -1,4 +1,6 @@
 const imagesHelper = require('./imagesHelper');
+const path = require('path');
+
 
 let imagesController = {
 
@@ -15,7 +17,6 @@ let imagesController = {
                 return res.json(response);
         });
     },
-    
     
     createImages(req, res) {
 
@@ -44,6 +45,46 @@ let imagesController = {
                 return res.json(response);
         });
     },
+
+    editImages(req, res) {
+
+        let id = req.params.id;
+        let config = req.body;
+
+        imagesHelper.editImages(id, config)
+            .then((response) =>{
+                if (response.error) {
+                    res.status(403);
+                }
+                return res.json(response);
+        });
+    },
+
+    getProductsImages(req, res) {
+
+        let id = req.params.id;
+
+        imagesHelper.getProductsImages(id)
+            .then((response) =>{
+                if (response.error) {
+                    res.status(403);
+                }                 
+            return res.json(response);
+        });
+    },
+
+    getImage(req, res) {
+
+        let id = req.params.id;
+
+        imagesHelper.getImage(id)
+            .then((response) =>{
+                if (response.error) {
+                    res.status(403);
+                }  
+            return res.sendFile(path.join(__dirname, '../../', response[0].path));
+        });
+    }
 }
 
 module.exports = imagesController;
