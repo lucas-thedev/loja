@@ -18,8 +18,12 @@ const codeController = require('./app/code/codeController');
 const productFeaturesController = require('./app/productFeatures/productFeaturesController');
 const imagesController = require('./app/images/imagesController');
 const priceController = require('./app/price/priceController');
+const productController = require('./app/product/productController');
 
 // ROUTES ===================================================================================================
+
+//products
+router.post('/products', productController.createProduct);
 
 //clients
 router.get('/clients', clientController.listClients);

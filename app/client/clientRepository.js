@@ -32,7 +32,7 @@ let clientRepository = {
         return new Promise((resolve, reject) => {
             let queryCommand = 'INSERT INTO client (' + clientModel + ') VALUES (' + values + ');';
             sql.query(queryCommand).then(() => {
-                queryCommand = 'SELECT LAST_INSERT_ID() as client;';
+                queryCommand = 'SELECT MAX(id) as createID FROM client;';
                 sql.query(queryCommand).then((response) => {
                     resolve(response);
                 })

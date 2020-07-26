@@ -7,7 +7,7 @@ let priceRepository = {
         return new Promise((resolve) => {
             let queryCommand = 'INSERT INTO price (' + priceModel + ') VALUES (' + values + ');';
             sql.query(queryCommand).then(() => {
-                queryCommand = ' SELECT LAST_INSERT_ID() as price;'
+                queryCommand = 'SELECT MAX(id) as priceID FROM price;';
                 sql.query(queryCommand).then((response) => {
                     resolve(response);
                 })

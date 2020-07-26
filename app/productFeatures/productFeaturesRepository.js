@@ -7,7 +7,7 @@ let productFeaturesRepository = {
         return new Promise((resolve) => {
             let queryCommand = 'INSERT INTO product_features (' + productFeaturesModel + ') VALUES (' + values + ');';
             sql.query(queryCommand).then(() => {
-                queryCommand = ' SELECT LAST_INSERT_ID() as productFeatures;'
+                queryCommand = 'SELECT MAX(id) as productFeaturesID FROM product_features;';
                 sql.query(queryCommand).then((response) => {
                     resolve(response);
                 })

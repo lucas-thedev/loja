@@ -24,8 +24,11 @@ let codeRepository = {
     createCode(value) {
         return new Promise((resolve, reject) => {
             let queryCommand = 'INSERT INTO code (' + codeModel + ') VALUES (' + value + ')';
-            sql.query(queryCommand).then((response) => {
-                resolve(response);
+            sql.query(queryCommand).then(() => {
+                queryCommand = 'SELECT MAX(id) as codeID FROM code;';
+                sql.query(queryCommand).then((response) => {
+                    resolve(response);
+                })
             });
         })
     },
