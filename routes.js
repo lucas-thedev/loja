@@ -24,6 +24,10 @@ const productController = require('./app/product/productController');
 
 //products
 router.post('/products', productController.createProduct);
+router.get('/products', productController.listProducts);
+router.get('/products/:id', productController.getProduct);
+router.put('/products/:id', productController.updateProduct);
+router.put('/products/delete/:id', productController.deleteProduct);
 
 //clients
 router.get('/clients', clientController.listClients);

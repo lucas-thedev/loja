@@ -1,12 +1,12 @@
 let productModel = [
-    'code',
+    'codeId',
     'name',
-    'price',
-    'stock',
+    'priceId',
+    'stockId',
     'status',
     'featuresHomeScreen',
     'categoryOrder',
-    'features'
+    'featuresId'
 ];
 
 module.exports = productModel;

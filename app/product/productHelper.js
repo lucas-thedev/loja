@@ -29,6 +29,7 @@ let productHelper = {
                     featuresHS: body.featuresHomeScreen,
                     categoryOrder: body.categoryOrder,
                     features: res[3][0].productFeaturesID
+                    created_at
                 }
 
                 let valuesAsArray = Object.values(productBody);
@@ -44,6 +45,43 @@ let productHelper = {
 
         });
     },
+
+    listProducts () {
+        return new Promise((resolve, reject) => {
+
+            productRepository.listProducts()
+                .then((response) =>{
+                    resolve(response);
+                }); 
+        });
+
+    },
+
+    getProduct (id) {
+        return new Promise((resolve, reject) => {
+
+            productRepository.getProduct(id)
+                .then((response) =>{
+                    resolve(response);
+                }); 
+        });
+
+    },
+
+    updateProduct(body, id) {
+        return new Promise((resolve, reject) => {
+
+            utils.setEditValues(body).then((formattedValues) => {
+
+                productRepository.updateProduct(formattedValues, id)
+                .then((response) =>{
+                    resolve(response);
+                }); 
+
+            })
+
+        });
+    }
 
 }
 
