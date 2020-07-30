@@ -1,5 +1,6 @@
 //const productRepository = require('./productRepository');
 const mysql = require('mysql');
+const moment = require('moment');
 const utils = require('../../utils/functions');
 const codeHelper = require('../code/codeHelper');
 const priceHelper = require('../price/priceHelper');
@@ -28,8 +29,10 @@ let productHelper = {
                     status: body.status,
                     featuresHS: body.featuresHomeScreen,
                     categoryOrder: body.categoryOrder,
-                    features: res[3][0].productFeaturesID
-                    created_at
+                    features: res[3][0].productFeaturesID,
+                    categoryId: body.categoryId,
+                    created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
+                    deleted_at: null
                 }
 
                 let valuesAsArray = Object.values(productBody);
@@ -80,6 +83,19 @@ let productHelper = {
 
             })
 
+        });
+    },
+
+    deleteProduct (id) {
+        return new Promise((resolve, reject) => {
+
+            let date = escape(moment().format('YYYY-MM-DD HH:mm:ss'));
+
+            productRepository.deleteProduct(date, id)
+                .then((response) =>{
+                    resolve(response);
+                });
+                
         });
     }
 

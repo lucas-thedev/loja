@@ -11,9 +11,9 @@ let clientModel = [
     'password',
     'phone',
     'status',
+    'type',
     'created_at',
-    'deleted_at',
-    'type'
+    'deleted_at'
 ];
 
 module.exports = clientModel;

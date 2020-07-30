@@ -6,7 +6,10 @@ let productModel = [
     'status',
     'featuresHomeScreen',
     'categoryOrder',
-    'featuresId'
+    'featuresId',
+    'categoryId',
+    'created_at',
+    'deleted_at'
 ];
 
 module.exports = productModel;

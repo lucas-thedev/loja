@@ -1,15 +1,15 @@
-const clientRepository = require('./clientRepository');
+const categoryRepository = require('./categoryRepository');
 const mysql = require('mysql');
 const moment = require('moment');
 const utils = require('../../utils/functions')
 
 
-let clientHelper = {
+let categoryHelper = {
 
-    listClients () {
+    listCategory () {
         return new Promise((resolve, reject) => {
 
-            clientRepository.listClients()
+            categoryRepository.listCategory()
                 .then((response) =>{
                     resolve(response);
                 }); 
@@ -17,7 +17,7 @@ let clientHelper = {
 
     },
 
-    getClient (id) {
+    /*getClient (id) {
         return new Promise((resolve, reject) => {
 
             clientRepository.getClient(id)
@@ -70,7 +70,7 @@ let clientHelper = {
                 });
                 
         });
-    }
+    }*/
 
 }
 
@@ -80,4 +80,4 @@ function escape(values) {
 
 
 
-module.exports = clientHelper;
+module.exports = categoryHelper;

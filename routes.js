@@ -19,6 +19,7 @@ const productFeaturesController = require('./app/productFeatures/productFeatures
 const imagesController = require('./app/images/imagesController');
 const priceController = require('./app/price/priceController');
 const productController = require('./app/product/productController');
+const categoryController = require('./app/category/categoryController');
 
 // ROUTES ===================================================================================================
 
@@ -57,6 +58,9 @@ router.get('/images/:id', imagesController.getImage);
 
 //price
 router.put('/prices/:id', priceController.editPrice);
+
+//category
+router.get('/category', categoryController.listCategory)
 
 
 

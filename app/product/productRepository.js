@@ -42,6 +42,16 @@ let productRepository = {
         });
     },
 
+
+    deleteProduct (values, id) {
+        return new Promise((resolve) => {
+            let queryCommand = 'UPDATE product SET deleted_at = ' + values + ' WHERE product.id = ' + id +';'
+            sql.query(queryCommand).then((response) => {
+                resolve(response);
+            });
+        });
+    },
+
 }
 
 module.exports = productRepository;

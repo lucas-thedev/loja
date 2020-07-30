@@ -1,0 +1,67 @@
+const categoryHelper = require('./categoryHelper');
+
+let categoryController = {
+
+    listCategory (req, res) {
+        categoryHelper.listCategory()
+            .then((response) =>{
+                return  res.json(response);
+        });
+    },
+
+    /*getClient(req, res) {
+
+        let id = req.params.id;
+
+        clientHelper.getClient(id)
+        .then((response) =>{
+            if (response.error) {
+                res.status(503);
+            }
+            return res.json(response);
+        });
+    },
+
+    createClient (req, res) {
+        let body = req.body;
+        clientHelper.createClient(body)
+        .then((response) =>{
+            if (response.error) {
+                res.status(503);
+            }
+            return res.json(response);
+        });
+    },
+
+    editClient (req, res) {
+
+        let body = req.body;
+        let id = req.params.id;
+
+        clientHelper.editClient(body, id)
+        .then((response) =>{
+            if (response.error) {
+                res.status(503);
+            }
+            return res.json(response);
+        });
+    },
+
+    deleteClient (req, res) {
+
+        let id = req.params.id;
+
+        clientHelper.deleteClient(id)
+        .then((response) =>{
+            if (response.error) {
+                res.status(503);
+            }
+            return res.json(response);
+        });
+    }*/
+
+
+
+}
+
+module.exports = categoryController;

@@ -1,25 +1,19 @@
 const sql = require('../../database/queries');
-const clientModel = require('./client');
+const categoryModel = require('./category');
 
-let clientRepository = {
-    listClients() {
+let categoryRepository = {
+    listCategory() {
         return new Promise((resolve, reject) => {
 
-            let queryCommand = 'SELECT * FROM client WHERE deleted_at IS NULL;'
+            let queryCommand = 'SELECT * FROM category INNER JOIN (SELECT name as product, product.id as productId, deleted_at, categoryId, categoryOrder FROM product WHERE product.deleted_at IS NULL ORDER BY categoryOrder ASC) AS product ON product.categoryId=category.id WHERE deleted_at IS NULL;';
 
-            sql.query(queryCommand).then((clients) => {
-
-                queryCommand = 'SELECT count(*) as count FROM client WHERE deleted_at IS NULL;'
-
-                sql.query(queryCommand).then((count) => {
-                    resolve({clients, count});
-                });
-                
+            sql.query(queryCommand).then((response) => {
+                resolve(response);
             });
         })
     },
 
-    getClient(id) {
+    /*getClient(id) {
         return new Promise((resolve, reject) => {
             let queryCommand = 'SELECT * FROM client WHERE deleted_at IS NULL AND client.CPF =' + id + ';'
             sql.query(queryCommand).then((response) => {
@@ -58,8 +52,8 @@ let clientRepository = {
                 resolve(response);
             });
         });
-    }
+    }*/
 
 }
 
-module.exports = clientRepository;
+module.exports = categoryRepository;
