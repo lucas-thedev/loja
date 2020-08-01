@@ -60,7 +60,11 @@ router.get('/images/:id', imagesController.getImage);
 router.put('/prices/:id', priceController.editPrice);
 
 //category
-router.get('/category', categoryController.listCategory)
+router.get('/category', categoryController.listCategory);
+router.get('/category/:id', categoryController.getCategory);
+router.post('/category', categoryController.createCategory);
+router.put('/category/:id', categoryController.editCategory);
+router.put('/category/delete/:id', categoryController.deleteCategory);
 
 
 

@@ -5,7 +5,7 @@ let categoryRepository = {
     listCategory() {
         return new Promise((resolve, reject) => {
 
-            let queryCommand = 'SELECT * FROM category INNER JOIN (SELECT name as product, product.id as productId, deleted_at, categoryId, categoryOrder FROM product WHERE product.deleted_at IS NULL ORDER BY categoryOrder ASC) AS product ON product.categoryId=category.id WHERE deleted_at IS NULL;';
+            let queryCommand = 'SELECT * FROM category INNER JOIN (SELECT name as product, product.id as productId, deleted_at, categoryId, categoryOrder FROM product WHERE product.deleted_at IS NULL ORDER BY categoryOrder ASC) AS product ON product.categoryId=category.id WHERE category.deleted_at IS NULL;';
 
             sql.query(queryCommand).then((response) => {
                 resolve(response);
@@ -13,22 +13,20 @@ let categoryRepository = {
         })
     },
 
-    /*getClient(id) {
+    getCategory(id) {
         return new Promise((resolve, reject) => {
-            let queryCommand = 'SELECT * FROM client WHERE deleted_at IS NULL AND client.CPF =' + id + ';'
+            let queryCommand = 'SELECT * FROM category INNER JOIN (SELECT name as product, product.id as productId, deleted_at, categoryId, categoryOrder FROM product WHERE product.deleted_at IS NULL ORDER BY categoryOrder ASC) AS product ON product.categoryId=category.id WHERE category.deleted_at IS NULL AND category.id=' + id + ';';
             sql.query(queryCommand).then((response) => {
                 resolve(response);
             });
         })
     },
 
-    createClient(values) {
+    createCategory(values) {
         return new Promise((resolve, reject) => {
-            let queryCommand = 'INSERT INTO client (' + clientModel + ') VALUES (' + values + ');';
-            console.log(queryCommand)
+            let queryCommand = 'INSERT INTO category (' + categoryModel + ') VALUES (' + values + ');';
             sql.query(queryCommand).then((res) => {
-                console.log(res)
-                queryCommand = 'SELECT MAX(id) as createID FROM client;';
+                queryCommand = 'SELECT MAX(id) as categoryID FROM category;';
                 sql.query(queryCommand).then((response) => {
                     resolve(response);
                 })
@@ -36,23 +34,23 @@ let categoryRepository = {
         })
     },
 
-    editClient(values, id) {
+    editCategory(values, id) {
         return new Promise((resolve, reject) => {
-            let queryCommand = 'UPDATE client SET ' + values + ' WHERE client.CPF = ' + id +';'
+            let queryCommand = 'UPDATE category SET ' + values + ' WHERE category.id = ' + id +';'
             sql.query(queryCommand).then((response) => {
                 resolve(response);
             });
         });   
     },
 
-    deleteClient(value, id) {
+    deleteCategory(value, id) {
         return new Promise((resolve, reject) => {
-            let queryCommand = 'UPDATE client SET deleted_at = ' + value + ' WHERE client.CPF = ' + id +';'
+            let queryCommand = 'UPDATE category SET deleted_at = ' + value + ' WHERE category.id = ' + id +';'
             sql.query(queryCommand).then((response) => {
                 resolve(response);
             });
         });
-    }*/
+    }
 
 }
 

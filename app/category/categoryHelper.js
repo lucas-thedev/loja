@@ -17,10 +17,10 @@ let categoryHelper = {
 
     },
 
-    /*getClient (id) {
+    getCategory (id) {
         return new Promise((resolve, reject) => {
 
-            clientRepository.getClient(id)
+            categoryRepository.getCategory(id)
                 .then((response) =>{
                     resolve(response);
                 }); 
@@ -28,15 +28,13 @@ let categoryHelper = {
 
     },
 
-    createClient (values) {
+    createCategory (values) {
         return new Promise((resolve, reject) => {
 
             let valuesAsArray = Object.values(values);
-            valuesAsArray.push(moment().format('YYYY-MM-DD HH:mm:ss'));
-            valuesAsArray.push(null);
             let formattedValues = escape(valuesAsArray);
 
-            clientRepository.createClient(formattedValues)
+            categoryRepository.createCategory(formattedValues)
                 .then((response) =>{
                     resolve(response);
                 });
@@ -44,12 +42,12 @@ let categoryHelper = {
 
     },
 
-    editClient (values, id) {
+    editCategory (values, id) {
         return new Promise((resolve, reject) => {
 
             utils.setEditValues(values).then((formattedValues) => {
                 
-                clientRepository.editClient(formattedValues, id)
+                categoryRepository.editCategory(formattedValues, id)
                 .then((response) =>{
                     resolve(response);
                 });
@@ -59,18 +57,18 @@ let categoryHelper = {
 
     },
 
-    deleteClient (id) {
+    deleteCategory (id) {
         return new Promise((resolve, reject) => {
 
             let date = escape(moment().format('YYYY-MM-DD HH:mm:ss'));
 
-            clientRepository.deleteClient(date, id)
+            categoryRepository.deleteCategory(date, id)
                 .then((response) =>{
                     resolve(response);
                 });
                 
         });
-    }*/
+    }
 
 }
 

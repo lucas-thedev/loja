@@ -9,11 +9,11 @@ let categoryController = {
         });
     },
 
-    /*getClient(req, res) {
+    getCategory(req, res) {
 
         let id = req.params.id;
 
-        clientHelper.getClient(id)
+        categoryHelper.getCategory(id)
         .then((response) =>{
             if (response.error) {
                 res.status(503);
@@ -22,9 +22,9 @@ let categoryController = {
         });
     },
 
-    createClient (req, res) {
+    createCategory (req, res) {
         let body = req.body;
-        clientHelper.createClient(body)
+        categoryHelper.createCategory(body)
         .then((response) =>{
             if (response.error) {
                 res.status(503);
@@ -33,12 +33,12 @@ let categoryController = {
         });
     },
 
-    editClient (req, res) {
+    editCategory (req, res) {
 
         let body = req.body;
         let id = req.params.id;
 
-        clientHelper.editClient(body, id)
+        categoryHelper.editCategory(body, id)
         .then((response) =>{
             if (response.error) {
                 res.status(503);
@@ -47,18 +47,18 @@ let categoryController = {
         });
     },
 
-    deleteClient (req, res) {
+    deleteCategory (req, res) {
 
         let id = req.params.id;
 
-        clientHelper.deleteClient(id)
+        categoryHelper.deleteCategory(id)
         .then((response) =>{
             if (response.error) {
                 res.status(503);
             }
             return res.json(response);
         });
-    }*/
+    }
 
 
 
