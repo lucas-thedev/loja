@@ -20,6 +20,7 @@ const imagesController = require('./app/images/imagesController');
 const priceController = require('./app/price/priceController');
 const productController = require('./app/product/productController');
 const categoryController = require('./app/category/categoryController');
+const orderController = require('./app/order/orderController');
 
 // ROUTES ===================================================================================================
 
@@ -66,6 +67,9 @@ router.post('/category', categoryController.createCategory);
 router.put('/category/:id', categoryController.editCategory);
 router.put('/category/delete/:id', categoryController.deleteCategory);
 
-
+//order
+router.get('/order', orderController.listOrders);
+router.get('/order/client/:id', orderController.listOrdersByClient);
+router.post('/order', orderController.createOrder);
 
 module.exports = router;

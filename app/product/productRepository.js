@@ -1,5 +1,6 @@
 const sql = require('../../database/queries');
 const productModel = require('./product');
+const utils = require('../../utils/functions');
 
 let productRepository = {
 
@@ -7,6 +8,9 @@ let productRepository = {
         return new Promise((resolve) => {
             let queryCommand = 'INSERT INTO product (' + productModel + ') VALUES (' + values + ');';
             sql.query(queryCommand).then((res) => {
+
+                if(utils.handleError(res)) resolve(res);
+
                 queryCommand = 'SELECT MAX(id) as productID FROM product;';
                 sql.query(queryCommand).then((response) => {
                     resolve(response);

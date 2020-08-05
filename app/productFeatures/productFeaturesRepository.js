@@ -1,12 +1,16 @@
 const sql = require('../../database/queries');
 const productFeaturesModel = require('./productFeatures');
+const utils = require('../../utils/functions');
 
 let productFeaturesRepository = {
 
     createProductFeatures(values) {
         return new Promise((resolve) => {
             let queryCommand = 'INSERT INTO product_features (' + productFeaturesModel + ') VALUES (' + values + ');';
-            sql.query(queryCommand).then(() => {
+            sql.query(queryCommand).then((res) => {
+
+                if(utils.handleError(res)) resolve(res);
+
                 queryCommand = 'SELECT MAX(id) as productFeaturesID FROM product_features;';
                 sql.query(queryCommand).then((response) => {
                     resolve(response);

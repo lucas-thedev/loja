@@ -1,5 +1,6 @@
 const sql = require('../../database/queries');
 const categoryModel = require('./category');
+const utils = require('../../utils/functions');
 
 let categoryRepository = {
     listCategory() {
@@ -26,6 +27,9 @@ let categoryRepository = {
         return new Promise((resolve, reject) => {
             let queryCommand = 'INSERT INTO category (' + categoryModel + ') VALUES (' + values + ');';
             sql.query(queryCommand).then((res) => {
+
+                if(utils.handleError(res)) resolve(res);
+
                 queryCommand = 'SELECT MAX(id) as categoryID FROM category;';
                 sql.query(queryCommand).then((response) => {
                     resolve(response);

@@ -1,5 +1,6 @@
 const sql = require('../../database/queries');
 const codeModel = require('./code');
+const utils = require('../../utils/functions');
 
 let codeRepository = {
     findCodeById(id) {
@@ -24,7 +25,10 @@ let codeRepository = {
     createCode(value) {
         return new Promise((resolve, reject) => {
             let queryCommand = 'INSERT INTO code (' + codeModel + ') VALUES (' + value + ')';
-            sql.query(queryCommand).then(() => {
+            sql.query(queryCommand).then((res) => {
+
+                if(utils.handleError(res)) resolve(res);
+
                 queryCommand = 'SELECT MAX(id) as codeID FROM code;';
                 sql.query(queryCommand).then((response) => {
                     resolve(response);

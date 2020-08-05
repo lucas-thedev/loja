@@ -1,23 +1,12 @@
 const sql = require('../../database/queries');
 const imagesModel = require('./images');
+const utils = require('../../utils/functions');
 
 let imagesRepository = {
 
     createProductImage(values) {
         return new Promise((resolve) => {
             let queryCommand = 'INSERT INTO product_images (' + imagesModel + ') VALUES (' + values + ');';
-            sql.query(queryCommand).then(() => {
-                queryCommand = ' SELECT LAST_INSERT_ID() as productImages;'
-                sql.query(queryCommand).then((response) => {
-                    resolve(response);
-                })
-            });
-        });
-    },
-
-    createProductImage(values) {
-        return new Promise((resolve) => {
-            let queryCommand = 'INSERT INTO product_images (' + imagesModel + ') VALUES ' + values + ';';
             sql.query(queryCommand).then((res) => {
                 resolve(res);
             });

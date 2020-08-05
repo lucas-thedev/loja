@@ -1,5 +1,6 @@
 const sql = require('../../database/queries');
 const clientModel = require('./client');
+const utils = require('../../utils/functions');
 
 let clientRepository = {
     listClients() {
@@ -7,7 +8,9 @@ let clientRepository = {
 
             let queryCommand = 'SELECT * FROM client WHERE deleted_at IS NULL;'
 
-            sql.query(queryCommand).then((clients) => {
+            sql.query(queryCommand).then((res) => {
+
+                if(utils.handleError(res)) resolve(res);
 
                 queryCommand = 'SELECT count(*) as count FROM client WHERE deleted_at IS NULL;'
 
@@ -31,9 +34,10 @@ let clientRepository = {
     createClient(values) {
         return new Promise((resolve, reject) => {
             let queryCommand = 'INSERT INTO client (' + clientModel + ') VALUES (' + values + ');';
-            console.log(queryCommand)
             sql.query(queryCommand).then((res) => {
-                console.log(res)
+
+                if(utils.handleError(res)) resolve(res);
+
                 queryCommand = 'SELECT MAX(id) as createID FROM client;';
                 sql.query(queryCommand).then((response) => {
                     resolve(response);

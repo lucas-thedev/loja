@@ -14,6 +14,14 @@ let functions = {
             formattedValues = formattedValues.slice(0, formattedValues.length - 1);
             resolve(formattedValues);
         })
+    },
+
+    handleError(res) {
+        if (res.hasOwnProperty('error')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

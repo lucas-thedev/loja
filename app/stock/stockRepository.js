@@ -1,12 +1,16 @@
 const sql = require('../../database/queries');
 const stockModel = require('./stock');
+const utils = require('../../utils/functions');
 
 let stockRepository = {
 
     createStock(values) {
         return new Promise((resolve) => {
             let queryCommand = 'INSERT INTO stock (' + stockModel + ') VALUES (' + values + ');';
-            sql.query(queryCommand).then(() => {
+            sql.query(queryCommand).then((res) => {
+
+                if(utils.handleError(res)) resolve(res);
+
                 queryCommand = 'SELECT MAX(id) as stockID FROM stock;'
                 sql.query(queryCommand).then((response) => {
                     resolve(response);
