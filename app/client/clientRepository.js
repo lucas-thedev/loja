@@ -6,7 +6,7 @@ let clientRepository = {
     listClients() {
         return new Promise((resolve, reject) => {
 
-            let queryCommand = 'SELECT * FROM client WHERE deleted_at IS NULL;'
+            let queryCommand = 'SELECT cpf, name, street, houseNumber, zipCode, state, country, email, phone, status, type, created_at, deleted_at  FROM client WHERE deleted_at IS NULL;'
 
             sql.query(queryCommand).then((res) => {
 
@@ -15,7 +15,7 @@ let clientRepository = {
                 queryCommand = 'SELECT count(*) as count FROM client WHERE deleted_at IS NULL;'
 
                 sql.query(queryCommand).then((count) => {
-                    resolve({clients, count});
+                    resolve({res, count});
                 });
                 
             });

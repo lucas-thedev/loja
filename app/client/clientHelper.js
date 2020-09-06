@@ -1,8 +1,8 @@
 const clientRepository = require('./clientRepository');
 const mysql = require('mysql');
 const moment = require('moment');
-const utils = require('../../utils/functions')
-
+const utils = require('../../utils/functions');
+const bcrypt = require('bcrypt');
 
 let clientHelper = {
 
@@ -30,16 +30,19 @@ let clientHelper = {
 
     createClient (values) {
         return new Promise((resolve, reject) => {
-
-            let valuesAsArray = Object.values(values);
-            valuesAsArray.push(moment().format('YYYY-MM-DD HH:mm:ss'));
-            valuesAsArray.push(null);
-            let formattedValues = escape(valuesAsArray);
-
-            clientRepository.createClient(formattedValues)
-                .then((response) =>{
-                    resolve(response);
-                });
+            encryptPassword(values.password).then((encryptedPassword) => {
+                values.password = encryptedPassword;
+                let valuesAsArray = Object.values(values);
+                valuesAsArray.push(moment().format('YYYY-MM-DD HH:mm:ss'));
+                valuesAsArray.push(null);
+                let formattedValues = escape(valuesAsArray);
+    
+                
+                clientRepository.createClient(formattedValues)
+                    .then((response) =>{
+                        resolve(response);
+                    });
+            });
         });
 
     },
@@ -76,6 +79,15 @@ let clientHelper = {
 
 function escape(values) {
     return mysql.escape(values);
+}
+
+function encryptPassword(password) {
+    return new Promise((resolve) => {
+        let salt = 10;
+        bcrypt.hash(password, salt, (err, encrypted) => {
+            resolve(encrypted);
+        })
+    })
 }
 
 

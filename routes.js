@@ -21,7 +21,8 @@ const priceController = require('./app/price/priceController');
 const productController = require('./app/product/productController');
 const categoryController = require('./app/category/categoryController');
 const orderController = require('./app/order/orderController');
-
+const saleController = require('./app/sale/saleController');
+const login = require('./app/login/login');
 // ROUTES ===================================================================================================
 
 //products
@@ -54,7 +55,7 @@ router.put('/product-features/:id', productFeaturesController.updateProductFeatu
 router.post('/images', upload.array('images'), imagesController.createImages);
 router.post('/images/thumbnail', upload.single('thumbnail'), imagesController.createThumbnail);
 router.put('/images/config/:id', imagesController.editImages);
-router.get('/images/product/:id', imagesController.getProductsImages); //melhor em product controller futuramente
+router.get('/images/product/:id', imagesController.getProductsImages);
 router.get('/images/:id', imagesController.getImage);
 
 //price
@@ -71,5 +72,13 @@ router.put('/category/delete/:id', categoryController.deleteCategory);
 router.get('/order', orderController.listOrders);
 router.get('/order/client/:id', orderController.listOrdersByClient);
 router.post('/order', orderController.createOrder);
+
+//sale
+router.post('/sale', saleController.createSale);
+router.get('/sale', saleController.listSales);
+
+//login
+router.post('/auth', login.loginUser);
+
 
 module.exports = router;

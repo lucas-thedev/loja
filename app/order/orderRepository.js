@@ -45,15 +45,11 @@ let orderRepository = {
         return new Promise((resolve) => {
             let queryCommand = 'INSERT INTO ordering (' + orderModel + ') VALUES (' + values + ');';
             sql.query(queryCommand).then((res) => {
-                console.log(res)
-                queryCommand = 'SELECT MAX(id) as orderID FROM ordering;';
-                sql.query(queryCommand).then((response) => {
-                    resolve(response);
-                })
+                resolve(res);
             });
         })
     }
 
 }
 
-module.exports = orderRepository;
+module.exports = orderRepository; 
