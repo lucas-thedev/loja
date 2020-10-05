@@ -6,7 +6,7 @@ let imagesRepository = {
 
     createProductImage(values) {
         return new Promise((resolve) => {
-            let queryCommand = 'INSERT INTO product_images (' + imagesModel + ') VALUES (' + values + ');';
+            let queryCommand = 'INSERT INTO product_images (' + imagesModel + ') VALUES ' + values + ';';
             sql.query(queryCommand).then((res) => {
                 resolve(res);
             });
